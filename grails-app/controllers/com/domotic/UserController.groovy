@@ -142,7 +142,7 @@ class UserController {
 				password:userInstance.password)
 			if (user){
 				session.user=user
-				redirect (view:"/index.gsp")
+				redirect (view:"index.gsp")
 			}
 			else{
 				flash.message = "Nombre de usuario o contrase–a incorrecta"
