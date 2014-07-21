@@ -151,6 +151,11 @@ class UserController {
 		}	
 	}
 	
+	def logoutWeb() {
+		session.invalidate()
+		redirect(controller:'user', action:'loginWeb')
+	}
+	
 	def indexWeb() {
 		render view:"index"
 	}

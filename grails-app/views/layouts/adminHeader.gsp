@@ -8,9 +8,15 @@
 		<li><g:link class="create" action="create">
 				<g:message code="default.new.label" args="[entityName]" />
 			</g:link></li>
-			
+		<li style="float: right">
+			<g:link class="logout" controller="user" action="logoutWeb">
+				<g:message code="web.logout"/>
+			</g:link>
+		</li>
+		
 		<li style="float: right"><g:link class="admin" controller="user" action="indexAdmin">
 				<g:message code="web.admin"/>
 			</g:link></li>
+		
 	</ul>
 </div>

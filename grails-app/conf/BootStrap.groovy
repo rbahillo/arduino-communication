@@ -13,7 +13,7 @@ class BootStrap {
     def init = { servletContext ->
 		
 		environments {
-			development {
+			
 				ed=new EstadoDispositivo(estado:false,tipoDeFuncionamiento:false,temperatura:-1, lastUpdate:new Date())
 				d=new Dispositivo(tipoDeComunicacion:Dispositivo.COMMUNICATIONS_TYPE.SMS,nombreDeDispositivo:"Aire La Adrada"
 								,tipoDeDispositivo:Dispositivo.DEVICE_TYPE.AIRE,direccion:"+34672289728",estado:ed,
@@ -26,7 +26,6 @@ class BootStrap {
 					d.save flush:true
 					u.save flush:true
 				}
-			}
 		}
     }
     def destroy = {

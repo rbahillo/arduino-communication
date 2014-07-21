@@ -184,7 +184,7 @@ img {
 	text-decoration: underline;
 }
 
-.nav a.home, .nav a.list, .nav a.create, .nav a.admin {
+.nav a.home, .nav a.list, .nav a.create, .nav a.admin, .nav a.logout {
 	background-position: 0.7em center;
 	background-repeat: no-repeat;
 	text-indent: 25px;
@@ -204,6 +204,10 @@ img {
 
 .nav a.admin {
 	background-image: url(../images/skin/database_table.png);
+}
+
+.nav a.logout {
+	background-image: url(../images/skin/database_delete.png);
 }
 
 /* CREATE/EDIT FORMS AND SHOW PAGES */
@@ -571,7 +575,7 @@ th:hover, tr:hover {
 	text-decoration: underline;
 }
 
-.buttons .delete, .buttons .edit, .buttons .save, .buttons .login {
+.buttons .delete, .buttons .edit, .buttons .save, .buttons .login, .buttons .logout {
 	background-position: 0.7em center;
 	background-repeat: no-repeat;
 	text-indent: 25px;
@@ -579,7 +583,7 @@ th:hover, tr:hover {
 
 .ie6 .buttons input.delete, .ie6 .buttons input.edit, .ie6 .buttons input.save,
 .ie7 .buttons input.delete, .ie7 .buttons input.edit, .ie7 .buttons input.save,
-.ie6 .buttons .login, ie7 .buttons .login {
+.ie6 .buttons input .login, ie7 .buttons input .login {
 	padding-left: 36px;
 }
 
