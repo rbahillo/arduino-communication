@@ -29,6 +29,8 @@ class Dispositivo {
 	String actualizaEstadoDispositivoURL = ""
 
     static constraints = {
+		estadoDispositivoURL nullable:true
+		actualizaEstadoDispositivoURL nullable:true
 		
     }
 	

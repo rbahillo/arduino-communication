@@ -9,13 +9,7 @@
 	</head>
 	<body>
 		<a href="#show-logRequest" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div class="nav" role="navigation">
-			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-			</ul>
-		</div>
+		<g:applyLayout name="adminHeader"/>
 		<div id="show-logRequest" class="content scaffold-show" role="main">
 			<h1><g:message code="default.show.label" args="[entityName]" /></h1>
 			<g:if test="${flash.message}">
@@ -63,7 +57,7 @@
 				<li class="fieldcontain">
 					<span id="dispositivo-label" class="property-label"><g:message code="logRequest.dispositivo.label" default="Dispositivo" /></span>
 					
-						<span class="property-value" aria-labelledby="dispositivo-label"><g:link controller="dispositivo" action="show" id="${logRequestInstance?.dispositivo?.id}">${logRequestInstance?.dispositivo?.encodeAsHTML()}</g:link></span>
+						<span class="property-value" aria-labelledby="dispositivo-label"><g:link controller="dispositivo" action="show" id="${logRequestInstance?.dispositivo?.id}">${logRequestInstance?.dispositivo?.nombreDeDispositivo}</g:link></span>
 					
 				</li>
 				</g:if>
@@ -99,7 +93,7 @@
 				<li class="fieldcontain">
 					<span id="user-label" class="property-label"><g:message code="logRequest.user.label" default="User" /></span>
 					
-						<span class="property-value" aria-labelledby="user-label"><g:link controller="user" action="show" id="${logRequestInstance?.user?.id}">${logRequestInstance?.user?.encodeAsHTML()}</g:link></span>
+						<span class="property-value" aria-labelledby="user-label"><g:link controller="user" action="show" id="${logRequestInstance?.user?.id}">${logRequestInstance?.user?.userName}</g:link></span>
 					
 				</li>
 				</g:if>

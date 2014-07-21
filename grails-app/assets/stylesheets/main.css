@@ -184,7 +184,7 @@ img {
 	text-decoration: underline;
 }
 
-.nav a.home, .nav a.list, .nav a.create {
+.nav a.home, .nav a.list, .nav a.create, .nav a.admin {
 	background-position: 0.7em center;
 	background-repeat: no-repeat;
 	text-indent: 25px;
@@ -200,6 +200,10 @@ img {
 
 .nav a.create {
 	background-image: url(../images/skin/database_add.png);
+}
+
+.nav a.admin {
+	background-image: url(../images/skin/database_table.png);
 }
 
 /* CREATE/EDIT FORMS AND SHOW PAGES */
@@ -567,14 +571,15 @@ th:hover, tr:hover {
 	text-decoration: underline;
 }
 
-.buttons .delete, .buttons .edit, .buttons .save {
+.buttons .delete, .buttons .edit, .buttons .save, .buttons .login {
 	background-position: 0.7em center;
 	background-repeat: no-repeat;
 	text-indent: 25px;
 }
 
 .ie6 .buttons input.delete, .ie6 .buttons input.edit, .ie6 .buttons input.save,
-.ie7 .buttons input.delete, .ie7 .buttons input.edit, .ie7 .buttons input.save {
+.ie7 .buttons input.delete, .ie7 .buttons input.edit, .ie7 .buttons input.save,
+.ie6 .buttons .login, ie7 .buttons .login {
 	padding-left: 36px;
 }
 
@@ -588,6 +593,10 @@ th:hover, tr:hover {
 
 .buttons .save {
 	background-image: url(../images/skin/database_save.png);
+}
+
+.buttons .login {
+	background-image: url(../images/skin/house.png);
 }
 
 a.skip {

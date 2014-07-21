@@ -9,13 +9,7 @@
 	</head>
 	<body>
 		<a href="#show-user" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div class="nav" role="navigation">
-			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-			</ul>
-		</div>
+		<g:applyLayout name="adminHeader"/>
 		<div id="show-user" class="content scaffold-show" role="main">
 			<h1><g:message code="default.show.label" args="[entityName]" /></h1>
 			<g:if test="${flash.message}">
@@ -37,7 +31,7 @@
 					<span id="dispositivos-label" class="property-label"><g:message code="user.dispositivos.label" default="Dispositivos" /></span>
 					
 						<g:each in="${userInstance.dispositivos}" var="d">
-						<span class="property-value" aria-labelledby="dispositivos-label"><g:link controller="dispositivo" action="show" id="${d.id}">${d?.encodeAsHTML()}</g:link></span>
+						<span class="property-value" aria-labelledby="dispositivos-label"><g:link controller="dispositivo" action="show" id="${d.id}">${d?.nombreDeDispositivo}</g:link></span>
 						</g:each>
 					
 				</li>

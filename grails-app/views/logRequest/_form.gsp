@@ -43,7 +43,7 @@
 		<g:message code="logRequest.dispositivo.label" default="Dispositivo" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:select id="dispositivo" name="dispositivo.id" from="${com.domotic.Dispositivo.list()}" optionKey="id" required="" value="${logRequestInstance?.dispositivo?.id}" class="many-to-one"/>
+	<g:select id="dispositivo" name="dispositivo.id" from="${com.domotic.Dispositivo.list()}" optionKey="id" optionValue="nombreDeDispositivo" required="" value="${logRequestInstance?.dispositivo?.id}" class="many-to-one"/>
 
 </div>
 
@@ -79,7 +79,7 @@
 		<g:message code="logRequest.user.label" default="User" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:select id="user" name="user.id" from="${com.domotic.User.list()}" optionKey="id" required="" value="${logRequestInstance?.user?.id}" class="many-to-one"/>
+	<g:select id="user" name="user.id" from="${com.domotic.User.list()}" optionKey="id" optionValue="userName" required="" value="${logRequestInstance?.user?.id}" class="many-to-one"/>
 
 </div>
 

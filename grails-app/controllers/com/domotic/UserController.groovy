@@ -134,6 +134,31 @@ class UserController {
 		
 	}
 	
+	def loginWeb(User userInstance) {
+		if(!userInstance)
+			render view:"loginWeb"
+		else{
+			def user = User.findWhere(userName:userInstance.userName,
+				password:userInstance.password)
+			if (user){
+				session.user=user
+				redirect (view:"/index.gsp")
+			}
+			else{
+				flash.message = "Nombre de usuario o contrase–a incorrecta"
+				redirect(controller:'user',action:'loginWeb')
+			}
+		}	
+	}
+	
+	def indexWeb() {
+		render view:"index"
+	}
+	
+	def indexAdmin() {
+		render view:"indexAdmin"
+	}
+	
 	def renderError(){
 		render request.error
 	}

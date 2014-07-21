@@ -9,13 +9,7 @@
 	</head>
 	<body>
 		<a href="#show-dispositivo" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div class="nav" role="navigation">
-			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-			</ul>
-		</div>
+		<g:applyLayout name="adminHeader"/>
 		<div id="show-dispositivo" class="content scaffold-show" role="main">
 			<h1><g:message code="default.show.label" args="[entityName]" /></h1>
 			<g:if test="${flash.message}">
@@ -23,38 +17,20 @@
 			</g:if>
 			<ol class="property-list dispositivo">
 			
-				<g:if test="${dispositivoInstance?.direccion}">
-				<li class="fieldcontain">
-					<span id="direccion-label" class="property-label"><g:message code="dispositivo.direccion.label" default="Direccion" /></span>
-					
-						<span class="property-value" aria-labelledby="direccion-label"><g:fieldValue bean="${dispositivoInstance}" field="direccion"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${dispositivoInstance?.estado}">
-				<li class="fieldcontain">
-					<span id="estado-label" class="property-label"><g:message code="dispositivo.estado.label" default="Estado" /></span>
-					
-						<span class="property-value" aria-labelledby="estado-label"><g:link controller="estadoDispositivo" action="show" id="${dispositivoInstance?.estado?.id}">${dispositivoInstance?.estado?.encodeAsHTML()}</g:link></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${dispositivoInstance?.estadoDispositivoURL}">
-				<li class="fieldcontain">
-					<span id="estadoDispositivoURL-label" class="property-label"><g:message code="dispositivo.estadoDispositivoURL.label" default="Estado Dispositivo URL" /></span>
-					
-						<span class="property-value" aria-labelledby="estadoDispositivoURL-label"><g:fieldValue bean="${dispositivoInstance}" field="estadoDispositivoURL"/></span>
-					
-				</li>
-				</g:if>
-			
 				<g:if test="${dispositivoInstance?.nombreDeDispositivo}">
 				<li class="fieldcontain">
 					<span id="nombreDeDispositivo-label" class="property-label"><g:message code="dispositivo.nombreDeDispositivo.label" default="Nombre De Dispositivo" /></span>
 					
 						<span class="property-value" aria-labelledby="nombreDeDispositivo-label"><g:fieldValue bean="${dispositivoInstance}" field="nombreDeDispositivo"/></span>
+					
+				</li>
+				</g:if>
+				
+				<g:if test="${dispositivoInstance?.direccion}">
+				<li class="fieldcontain">
+					<span id="direccion-label" class="property-label"><g:message code="dispositivo.direccion.label" default="Direccion" /></span>
+					
+						<span class="property-value" aria-labelledby="direccion-label"><g:fieldValue bean="${dispositivoInstance}" field="direccion"/></span>
 					
 				</li>
 				</g:if>
@@ -75,6 +51,31 @@
 						<span class="property-value" aria-labelledby="tipoDeDispositivo-label"><g:fieldValue bean="${dispositivoInstance}" field="tipoDeDispositivo"/></span>
 					
 				</li>
+				</g:if>
+				
+				<g:if test="${dispositivoInstance?.estado}">
+				<h1><g:message code="estadoDispositivo.label" default="Estado De Dispositivo" /></h1>
+				<li class="fieldcontain">
+					<span id="estado-label" class="property-label"><g:message code="estadoDispositivo.estado.label" default="Estado" /></span>
+					
+						<span class="property-value" aria-labelledby="estado-label"><g:formatBoolean boolean="${dispositivoInstance?.estado?.estado}" /></span>
+					
+				</li>
+				
+				<li class="fieldcontain">
+					<span id="tipoDeFuncionamiento-label" class="property-label"><g:message code="estadoDispositivo.tipoDeFuncionamiento.label" default="Tipo De Funcionamiento" /></span>
+					
+						<span class="property-value" aria-labelledby="tipoDeFuncionamiento-label"><g:formatBoolean boolean="${dispositivoInstance?.estado?.tipoDeFuncionamiento}" /></span>
+					
+				</li>
+				
+				<li class="fieldcontain">
+					<span id="temperatura-label" class="property-label"><g:message code="estadoDispositivo.temperatura.label" default="Temperatura" /></span>
+					
+						<span class="property-value" aria-labelledby="temperatura-label"><g:fieldValue bean="${dispositivoInstance?.estado}" field="temperatura"/></span>
+					
+				</li>
+				
 				</g:if>
 			
 			</ol>

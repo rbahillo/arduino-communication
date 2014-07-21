@@ -16,7 +16,8 @@
 		<g:message code="user.dispositivos.label" default="Dispositivos" />
 		
 	</label>
-	<g:select name="dispositivos" from="${com.domotic.Dispositivo.list()}" multiple="multiple" optionKey="id" size="5" value="${userInstance?.dispositivos*.nombreDeDispositivo}" class="many-to-many"/>
+	
+	<g:select name="dispositivos" from="${com.domotic.Dispositivo.list()}" multiple="multiple" optionValue="nombreDeDispositivo" optionKey="id" size="5" value="${userInstance?.dispositivos*.nombreDeDispositivo}" class="many-to-many"/>
 
 </div>
 

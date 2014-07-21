@@ -86,11 +86,11 @@
 		<div id="page-body" role="main">
 			<h1>Welcome Admin</h1>
 			<div id="controller-list" role="navigation">
-				<h2>Available Controllers:</h2>
+				<h2>Control de:</h2>
 				<ul>
-					<g:each var="c" in="${grailsApplication.controllerClasses.sort { it.logicalPropertyName } }">
-						<li class="controller"><g:link controller="${c.logicalPropertyName}">${c.logicalPropertyName}</g:link></li>
-					</g:each>
+					<li class="controller"><g:link controller="user">Usuarios</g:link></li>
+					<li class="controller"><g:link controller="dispositivo">Dispositivos</g:link></li>
+					<li class="controller"><g:link controller="logRequest">Requests</g:link></li>
 				</ul>
 			</div>
 		</div>

@@ -9,12 +9,7 @@
 	</head>
 	<body>
 		<a href="#list-logRequest" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div class="nav" role="navigation">
-			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-			</ul>
-		</div>
+		<g:applyLayout name="adminHeader"/>
 		<div id="list-logRequest" class="content scaffold-list" role="main">
 			<h1><g:message code="default.list.label" args="[entityName]" /></h1>
 			<g:if test="${flash.message}">
@@ -25,16 +20,12 @@
 					<tr>
 					
 						<g:sortableColumn property="communicationId" title="${message(code: 'logRequest.communicationId.label', default: 'Communication Id')}" />
-					
-						<g:sortableColumn property="estado" title="${message(code: 'logRequest.estado.label', default: 'Estado')}" />
-					
-						<g:sortableColumn property="tipoDeFuncionamiento" title="${message(code: 'logRequest.tipoDeFuncionamiento.label', default: 'Tipo De Funcionamiento')}" />
-					
-						<g:sortableColumn property="temperatura" title="${message(code: 'logRequest.temperatura.label', default: 'Temperatura')}" />
+						
+						<g:sortableColumn property="latest" title="${message(code: 'logRequest.latest.label', default: 'Latest')}" />
 					
 						<th><g:message code="logRequest.dispositivo.label" default="Dispositivo" /></th>
-					
-						<g:sortableColumn property="latest" title="${message(code: 'logRequest.latest.label', default: 'Latest')}" />
+						
+						<th><g:message code="logRequest.user.label" default="Usuario" /></th>
 					
 					</tr>
 				</thead>
@@ -43,17 +34,15 @@
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
 						<td><g:link action="show" id="${logRequestInstance.id}">${fieldValue(bean: logRequestInstance, field: "communicationId")}</g:link></td>
-					
-						<td><g:formatBoolean boolean="${logRequestInstance.estado}" /></td>
-					
-						<td><g:formatBoolean boolean="${logRequestInstance.tipoDeFuncionamiento}" /></td>
-					
-						<td>${fieldValue(bean: logRequestInstance, field: "temperatura")}</td>
-					
-						<td>${fieldValue(bean: logRequestInstance, field: "dispositivo")}</td>
-					
+						
 						<td>${fieldValue(bean: logRequestInstance, field: "latest")}</td>
 					
+						<g:set var="dispositivo" value="${logRequestInstance.dispositivo}" />
+						<td>${fieldValue(bean: dispositivo, field: "nombreDeDispositivo")}</td>
+						
+						<g:set var="user" value="${logRequestInstance.user}" />
+						<td>${fieldValue(bean: user, field: "userName")}</td>
+						
 					</tr>
 				</g:each>
 				</tbody>
