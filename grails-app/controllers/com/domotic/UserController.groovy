@@ -5,6 +5,7 @@ package com.domotic
 import static org.springframework.http.HttpStatus.*
 import grails.converters.JSON
 import grails.transaction.Transactional
+import com.domotic.manager.web.RestClientManager
 import com.domotic.valueobjects.ApplicationMessages
 
 @Transactional(readOnly = true)
@@ -138,15 +139,25 @@ class UserController {
 		if(!userInstance)
 			render view:"loginWeb"
 		else{
-			def user = User.findWhere(userName:userInstance.userName,
-				password:userInstance.password)
-			if (user){
-				session.user=user
-				redirect (view:"index.gsp")
+			def parameters = ["userName":userInstance.userName, "password":userInstance.password]
+			def resp = RestClientManager.getResponseFromService(
+				g.createLink(controller:"user", action:"login", absolute:"true"),
+				parameters)
+			if(resp.status=="error"){
+				flash.message=resp.errorDescription
+				render view:"loginWeb"
 			}
 			else{
-				flash.message = "Nombre de usuario o contrase–a incorrecta"
-				redirect(controller:'user',action:'loginWeb')
+				def user = new User()
+				user.properties=resp
+				if (user){
+					session.user=user
+					render (view:"indexUser.gsp")
+				}
+				else{
+					flash.message = "Nombre de usuario o contrase–a incorrecta"
+					redirect(controller:'user',action:'loginWeb')
+				}
 			}
 		}	
 	}
