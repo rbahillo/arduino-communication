@@ -38,3 +38,12 @@
 
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: dispositivoInstance, field: 'statusRequest', 'error')} required">
+	<label for="statusRequest">
+		<g:message code="dispositivo.statusRequest.label" default="Estado Web" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:select name="statusRequest" from="${com.domotic.Dispositivo$WEB_STATUS_REQUEST?.values()}" keys="${com.domotic.Dispositivo$WEB_STATUS_REQUEST.values()*.name()}" required="" value="${dispositivoInstance?.statusRequest?.name()}" />
+
+</div>
+

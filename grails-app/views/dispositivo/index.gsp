@@ -26,6 +26,8 @@
 						<g:sortableColumn property="tipoDeComunicacion" title="${message(code: 'dispositivo.tipoDeComunicacion.label', default: 'Tipo De Comunicacion')}" />
 					
 						<g:sortableColumn property="tipoDeDispositivo" title="${message(code: 'dispositivo.tipoDeDispositivo.label', default: 'Tipo De Dispositivo')}" />
+						
+						<g:sortableColumn property="statusRequest" title="${message(code: 'dispositivo.statusRequest.label', default: 'Estado Web')}" />
 					
 					</tr>
 				</thead>
@@ -40,6 +42,8 @@
 						<td>${fieldValue(bean: dispositivoInstance, field: "tipoDeComunicacion")}</td>
 					
 						<td>${fieldValue(bean: dispositivoInstance, field: "tipoDeDispositivo")}</td>
+						
+						<td>${fieldValue(bean: dispositivoInstance, field: "statusRequest")}</td>
 					
 					</tr>
 				</g:each>

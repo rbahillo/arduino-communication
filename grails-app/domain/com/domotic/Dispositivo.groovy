@@ -1,5 +1,6 @@
 package com.domotic
 
+import com.domotic.LogRequest.STATUS_REQUEST;
 import com.domotic.manager.CommunicationManager
 import com.domotic.manager.SMSCommunicationManager
 import com.domotic.manager.WifiCommunicationManager
@@ -27,6 +28,12 @@ class Dispositivo {
 	String estadoDispositivoURL = ""
 	
 	String actualizaEstadoDispositivoURL = ""
+	
+	enum WEB_STATUS_REQUEST{
+		PENDING, OK, ERROR
+	}
+	
+	WEB_STATUS_REQUEST statusRequest
 
     static constraints = {
 		estadoDispositivoURL nullable:true

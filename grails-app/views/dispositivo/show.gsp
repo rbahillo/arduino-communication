@@ -53,6 +53,15 @@
 				</li>
 				</g:if>
 				
+				<g:if test="${dispositivoInstance?.statusRequest}">
+				<li class="fieldcontain">
+					<span id="statusRequest-label" class="property-label"><g:message code="dispositivo.statusRequest.label" default="Estado Web" /></span>
+					
+						<span class="property-value" aria-labelledby="statusRequest-label"><g:fieldValue bean="${dispositivoInstance}" field="statusRequest"/></span>
+					
+				</li>
+				</g:if>
+				
 				<g:if test="${dispositivoInstance?.estado}">
 				<h1><g:message code="estadoDispositivo.label" default="Estado De Dispositivo" /></h1>
 				<li class="fieldcontain">
