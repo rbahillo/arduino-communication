@@ -29,7 +29,7 @@ abstract class CommunicationManager {
 		return message;
 	}
 	
-	abstract public Boolean sendMessage (String message, String address);
+	abstract public Boolean sendMessage (String message, String address, Boolean test);
 	
 	
 

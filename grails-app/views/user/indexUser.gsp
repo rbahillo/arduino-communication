@@ -28,10 +28,15 @@
 		<g:applyLayout name="generalHeader"/>
 		<div id="accordion">
 			<g:each status="i" var="dispositivo" in="${session.user.dispositivos}">
-			    <h3>${dispositivo.nombreDeDispositivo} 
-			    <g:if test="${dispositivo.estado.lastUpdate}">
-			    	(Actualizado: <g:formatDate format="dd-MM-yyyy HH:mm:ss" date="${dispositivo.estado.lastUpdate}"/>)
-			    </g:if>
+			    <h3>
+			    	<div id="nombre${i} }" >
+			    		${dispositivo.nombreDeDispositivo} 
+			    	</div>
+				    <g:if test="${dispositivo.estado.lastUpdate}" style="float:left">
+				    	<div id="updated${i}">
+				    		(Actualizado: <g:formatDate format="dd-MM-yyyy HH:mm:ss" date="${dispositivo.estado.lastUpdate}"/>)
+				    	</div>
+				    </g:if>
 			    </h3>
 			    <div>
 			    	<div style="width:300px;float: left">
@@ -83,6 +88,7 @@
 						    <div class="toggle" style="height:22px;width:80px;">	
 							</div>
 						</div>
+						<input type="checkbox" disabled="disabled" class="modoCheck${i}" style="display:none">
 						
 					</div>
 					<g:set var="label" value="Actualizar" />
@@ -97,9 +103,11 @@
 						<input id="submit${i}" type="submit" value="${label}" 
 							style="${style}">
 					</div>
+					<g:set var="hide" value="display:none"/>
 					<g:if test="${ dispositivo.statusRequest == com.domotic.Dispositivo.WEB_STATUS_REQUEST.ERROR}">
-						<span class="ui-icon ui-icon-circle-close" style="margin:30px 0px 0px 10px;float: left"></span>
+						<g:set var="hide" value=""/>
 					</g:if>
+					<span id="warning${i}" class="ui-icon ui-icon-circle-close" style="margin:30px 0px 0px 10px;float: left;${hide}"></span>
 				   	<script>
 					  $(function() {
 					    $( "#slider${i}" ).slider({
@@ -114,7 +122,7 @@
 					    });
 					    $( "#temperatura${i}" ).val( $( "#slider${i}" ).slider( "value" ) );
 					    $('.estado${i} .toggle').toggles({on:${dispositivo.estado.estado}, checkbox:$('.estadoCheck${i}')});
-					    $('.modo${i} .toggle').toggles({text:{on:'Frio',off:'Calor'}, on:${dispositivo.estado.tipoDeFuncionamiento}});
+					    $('.modo${i} .toggle').toggles({text:{on:'Frio',off:'Calor'}, on:${dispositivo.estado.tipoDeFuncionamiento}, checkbox:$('.modoCheck${i}')});
 					    $( "#submit${i}" )
 					      .button()
 					      .click(function( event ) {
@@ -122,12 +130,36 @@
 					        	$( "#submit${i}" ).css("width", "90px")
 					        	$( "#submit${i}" ).button( "option", "label", "Actualizando" );
 					        	$( "#submit${i}" ).button( "option", "disabled", true );
-					        	$.ajax({
-					        		  url: "/dispositivo/actualizaEstadoDispositivo/${dispositivo.id}",
-					        		  context: document.body
-					        		}).done(function() {
-					        		  $( this ).addClass( "done" );
-					        		});
+					        	var parametros = {
+					        				"temperatura" : $( "#temperatura${i}" ).val(),
+					        				"estado" : $( ".estadoCheck${i}" ).val(),
+					        				"tipoFunc": $( ".modoCheck${i}" ).val()
+					        				};	
+		        				var url = '<g:createLink controller="dispositivo" action="actualizaEstadoDispositivoWeb" id="${dispositivo.id}"/>'
+					        	$.getJSON(url, JSON.stringify(parametros), function(data) {
+					        		if(data["status"]=="error"){
+					        		}
+					        		else {
+						        		if(data["status"]=="timeout"){
+						        			$( "#warning${i}" ).css({"display":"block"})
+					        			}	
+						        		else{
+							        		if(data["lastUpdate"]!=null){
+							        			$( "#updated${i}" ).html('Actualizado: ('+data["lastUpdate"]+')')
+							        		}
+							        	}
+						        		$( "#temperatura${i}" ).val(data["temperatura"])
+					        			$( "#slider${i}" ).slider( { value: data["temperatura"] } )
+					        			$('.estado${i} .toggle').toggles({on:data["estado"]})
+					        			$('.estadoCheck${i}').prop('checked', data["estado"])
+					        			$('.modo${i} .toggle').toggles({on:data["tipoDeFunc"]})
+					        			$('.modoCheck${i}').prop('checked', data["tipoDeFunc"])
+						        		$( "#submit${i}" ).css("width", "70px")				        		
+						        		$( "#submit${i}" ).button( "option", "label", "Actualizar" );
+						        		$( "#submit${i}" ).button( "option", "disabled", false );
+					        		}
+					        		});			        	
+				        		return false
 					      });
 					    $( "#submit${i}" ).button( "option", "disabled", ${butonStatus} );
 					  });

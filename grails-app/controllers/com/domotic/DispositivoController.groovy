@@ -9,6 +9,8 @@ import com.domotic.manager.CommunicationManager.MESSAGE_TYPE;
 import grails.converters.JSON
 import grails.transaction.Transactional
 import com.domotic.valueobjects.ApplicationMessages
+import com.domotic.manager.web.RestClientManager
+import grails.util.Environment
 
 @Transactional(readOnly = true)
 class DispositivoController {
@@ -40,7 +42,6 @@ class DispositivoController {
 		estado.tipoDeFuncionamiento=0
 		estado.temperatura=-1
 		estado.save flush:true
-		println estado.id
 		dispositivoInstance.estado=estado
 		dispositivoInstance.validate()
 
@@ -126,7 +127,7 @@ class DispositivoController {
     }
 	
 	def status() {
-		Dispositivo device = findDevice()
+		Dispositivo device = findDevice(false)
 		if(device){
 			JSON.use('deep') {
 				render device as JSON
@@ -139,7 +140,7 @@ class DispositivoController {
 	}
 	
 	def estadoDispositivo(){
-		Dispositivo device = findDevice()
+		Dispositivo device = findDevice(false)
 		if(device){
 			JSON.use('deep') {
 				render device.estado as JSON
@@ -153,7 +154,8 @@ class DispositivoController {
 	}
 	
 	def actualizaEstadoDispositivo() {
-		Dispositivo device = findDevice()
+		
+		Dispositivo device = findDevice(false)
 		if(device){
 			CommunicationManager commManager = device.getCommManager()
 			def json = request.JSON
@@ -178,7 +180,7 @@ class DispositivoController {
 			String message = commManager.createMessage(logRequest, estado, 
 				messageType)
 			
-			if(commManager.sendMessage(message, device.direccion)){
+			if(commManager.sendMessage(message, device.direccion, Environment.current == Environment.DEVELOPMENT)){
 				logRequest.save flush:true
 				def resp = ApplicationMessages.SUCCESS_REPLY
 				resp.putAt("checkURL", g.createLink(controller:"logRequest", action:"check", id:logRequest.communicationId, absolute:"true"))
@@ -193,10 +195,78 @@ class DispositivoController {
 			def resp = ApplicationMessages.DEVICE_NOT_ASSOCIATED_TO_USER
 			render resp as JSON
 		}
+		else{
+			def resp = ApplicationMessages.DEVICE_NOT_FOUND
+			render resp as JSON
+		}
 	}
 	
-	protected Dispositivo findDevice(){
+	def actualizaEstadoDispositivoWeb(){
+		def json = request.JSON
+		Dispositivo device = findDevice(true)
+		if(device){
+			def estado = json.estado=="on"
+			def tipoFunc = json.tipoFunc=="on"
+			def parameters = ["userName":session.user.userName, "password":session.user.password,
+				"messageType":"send", "estado":estado,
+					"tipoFunc":tipoFunc,"temperatura":json.temperatura]
+			def resp = RestClientManager.getResponseFromService(device.actualizaEstadoDispositivoURL,
+				parameters)
+			if(resp.status=="error"){
+				render resp as JSON
+			}
+			else{
+				def stopWaiting = false
+				def counter=0
+				def parametersCheck = ["userName":session.user.userName, "password":session.user.password]
+				def respWeb = ApplicationMessages.SUCCESS_REPLY
+				while(!stopWaiting){
+					def checkResp = RestClientManager.getResponseFromService(resp.checkURL,
+						parametersCheck)
+					if(checkResp.status=="error"){
+						render resp as JSON
+					}
+					else{
+						def logRequest = new LogRequest()
+						logRequest.properties=checkResp
+						if(checkResp.statusRequest.name==LogRequest.STATUS_REQUEST.REPLIED.name()){
+							stopWaiting=true
+							respWeb = [status: "success"]
+							respWeb.putAt("estado",logRequest.estado)
+							respWeb.putAt("tipoDeFunc",logRequest.tipoDeFuncionamiento)
+							respWeb.putAt("temperatura",logRequest.temperatura)
+							respWeb.putAt("lastUpdate",logRequest.timeStamp)
+						}
+						else if(counter==4){
+							stopWaiting=true
+							//device.statusRequest=Dispositivo.WEB_STATUS_REQUEST.ERROR
+							respWeb = [status: "timeout"]						
+							respWeb.putAt("estado",device.estado.estado)
+							respWeb.putAt("tipoDeFunc",device.estado.tipoDeFuncionamiento)
+							respWeb.putAt("temperatura",device.estado.temperatura)
+							respWeb.putAt("lastUpdate",device.estado.lastUpdate)
+							
+						}
+						else{
+							Thread.currentThread().sleep((long)(10*1000));
+							counter++
+						}
+					}
+				}
+				//device.save flush:true
+				render respWeb as JSON
+			}
+		}
+		else{
+			def resp = ApplicationMessages.DEVICE_NOT_FOUND
+			render resp as JSON
+		}
+	}
+	
+	protected Dispositivo findDevice(Boolean inSession){
 		def user = request.user
+		if(inSession)
+			user = session.user
 		if (user && user.dispositivos.find {it.id==new Integer(params.id)}!=null){
 			def device = user.dispositivos.find {it.id==new Integer(params.id)}
 			return device	

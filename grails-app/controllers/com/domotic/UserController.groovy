@@ -152,7 +152,7 @@ class UserController {
 				user.properties=resp
 				if (user){
 					session.user=user
-					render (view:"indexUser.gsp")
+					render (view:"indexUser")
 				}
 				else{
 					flash.message = "Nombre de usuario o contrase–a incorrecta"
@@ -168,7 +168,7 @@ class UserController {
 	}
 	
 	def indexWeb() {
-		render view:"index"
+		render view:"indexUser"
 	}
 	
 	def indexAdmin() {

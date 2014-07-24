@@ -38,7 +38,7 @@ class AuthFilters {
 		}
 
 		authWebAdminFilter(controller:'user|dispositivo|logRequest',
-		action:'show|create|save|update|delete|indexAdmin') {
+		action:'show|create|save|update|delete|indexAdmin|indexWeb') {
 			before = {
 				User user = session.user
 				if(!user.admin){

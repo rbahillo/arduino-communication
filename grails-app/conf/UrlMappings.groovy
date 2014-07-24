@@ -7,7 +7,7 @@ class UrlMappings {
             }
         }
 
-        "/"(controller:'user', action:'loginWeb')
+        "/"(controller:'user', action:'indexWeb')
         "500"(view:'/error')
 	}
 }

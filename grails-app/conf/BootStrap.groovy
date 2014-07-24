@@ -13,11 +13,12 @@ class BootStrap {
     def init = { servletContext ->
 		
 		environments {
-			
+			development {
 				ed=new EstadoDispositivo(estado:false,tipoDeFuncionamiento:false,temperatura:-1, lastUpdate:new Date())
 				d=new Dispositivo(tipoDeComunicacion:Dispositivo.COMMUNICATIONS_TYPE.SMS,nombreDeDispositivo:"Aire La Adrada"
 								,tipoDeDispositivo:Dispositivo.DEVICE_TYPE.AIRE,direccion:"+34672289728",estado:ed,
 								estadoDispositivoURL:"http://localhost:8080/arduino-communcation/dispositivo/estadoDispositivo/1/"
+								,actualizaEstadoDispositivoURL:"http://localhost:8080/arduino-communcation/dispositivo/actualizaEstadoDispositivo/1/"
 								,statusRequest:Dispositivo.WEB_STATUS_REQUEST.OK)
 				if(!User.count()){
 					u=new User(admin:true,userName:"ricky",password:"Opodo123",
@@ -27,6 +28,12 @@ class BootStrap {
 					d.save flush:true
 					u.save flush:true
 				}
+			}
+			production{
+				u=new User(admin:true,userName:"ricky",password:"Opodo123",
+					listDispositivosURL:"http://arduino-communication.herokuapp.com/arduino-communcation/user/listaDispositivos/1/")
+				u.save flush:true
+			}
 		}
     }
     def destroy = {

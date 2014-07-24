@@ -98,8 +98,9 @@ class LogRequestController {
 		def user = request.user
 		LogRequest logRequest = LogRequest.find ("from LogRequest where latest=1 and communicationId="+params.id)
 		if(logRequest){
-			if(logRequest.user.id==user.id)
+			if(logRequest.user.id==user.id){
 				render logRequest as JSON
+			}
 			else{
 				def resp = ApplicationMessages.REQUEST_NOT_FOR_USER
 				render resp as JSON
@@ -134,7 +135,14 @@ class LogRequestController {
 				logRequest2.estado=status
 				logRequest2.temperatura=temperatura
 				logRequest2.tipoDeFuncionamiento=tipoDeFuncionamiento
+				logRequest.dispositivo.statusRequest=Dispositivo.WEB_STATUS_REQUEST.OK
 				logRequest2.save flush:true
+				logRequest.dispositivo.estado.estado=status
+				logRequest.dispositivo.estado.tipoDeFuncionamiento=tipoDeFuncionamiento
+				logRequest.dispositivo.estado.temperatura=temperatura
+				logRequest.dispositivo.estado.lastUpdate= new Date()
+				logRequest.dispositivo.estado.save flush:true
+				logRequest.dispositivo.save flush:true
 			}
 		}
 		render "</Response>"

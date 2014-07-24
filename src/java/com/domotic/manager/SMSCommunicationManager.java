@@ -18,7 +18,7 @@ public class SMSCommunicationManager extends CommunicationManager {
 	   
 
 	@Override
-	public Boolean sendMessage(String message, String address) {
+	public Boolean sendMessage(String message, String address, Boolean test) {
 		
 		Boolean res = true;
 		TwilioRestClient client = new TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN);
@@ -31,13 +31,14 @@ public class SMSCommunicationManager extends CommunicationManager {
 	
 		MessageFactory messageFactory = client.getAccount().getMessageFactory();
 		Message twiloMessage;
-		/*try {
-			twiloMessage = messageFactory.create(params);
+		try {
+			if(!test)
+				twiloMessage = messageFactory.create(params);
 		} catch (TwilioRestException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			res = false;
-		}*/
+		}
 		return res;
 		
 	}
