@@ -126,7 +126,7 @@
 					    $( "#submit${i}" )
 					      .button()
 					      .click(function( event ) {
-					        event.preventDefault();
+					    	  event.preventDefault();
 					        	$( "#submit${i}" ).css("width", "90px")
 					        	$( "#submit${i}" ).button( "option", "label", "Actualizando" );
 					        	$( "#submit${i}" ).button( "option", "disabled", true );
@@ -136,29 +136,37 @@
 					        				"tipoFunc": $( ".modoCheck${i}" ).val()
 					        				};	
 		        				var url = '<g:createLink controller="dispositivo" action="actualizaEstadoDispositivoWeb" id="${dispositivo.id}"/>'
-					        	$.getJSON(url, JSON.stringify(parametros), function(data) {
-					        		if(data["status"]=="error"){
-					        		}
-					        		else {
-						        		if(data["status"]=="timeout"){
-						        			$( "#warning${i}" ).css({"display":"block"})
-					        			}	
-						        		else{
-							        		if(data["lastUpdate"]!=null){
-							        			$( "#updated${i}" ).html('Actualizado: ('+data["lastUpdate"]+')')
+		        					$.ajax({
+			        				    type: "POST",
+			        				    url: url,
+			        				    contentType: "application/json; charset=utf-8",
+			        				    dataType: "json",
+			        				    data: JSON.stringify(parametros),
+			        				    success: function(data) {
+							        		if(data["status"]=="error"){
 							        		}
-							        	}
-						        		$( "#temperatura${i}" ).val(data["temperatura"])
-					        			$( "#slider${i}" ).slider( { value: data["temperatura"] } )
-					        			$('.estado${i} .toggle').toggles({on:data["estado"]})
-					        			$('.estadoCheck${i}').prop('checked', data["estado"])
-					        			$('.modo${i} .toggle').toggles({on:data["tipoDeFunc"]})
-					        			$('.modoCheck${i}').prop('checked', data["tipoDeFunc"])
-						        		$( "#submit${i}" ).css("width", "70px")				        		
-						        		$( "#submit${i}" ).button( "option", "label", "Actualizar" );
-						        		$( "#submit${i}" ).button( "option", "disabled", false );
-					        		}
-					        		});			        	
+							        		else {
+								        		if(data["status"]=="timeout"){
+								        			$( "#warning${i}" ).css({"display":"block"})
+							        			}	
+								        		else{
+									        		if(data["lastUpdate"]!=null){
+									        			$( "#updated${i}" ).html('Actualizado: ('+data["lastUpdate"]+')')
+									        		}
+									        	}
+								        		$( "#temperatura${i}" ).val(data["temperatura"])
+							        			$( "#slider${i}" ).slider( { value: data["temperatura"] } )
+							        			$('.estado${i} .toggle').toggles({on:data["estado"]})
+							        			$('.estadoCheck${i}').prop('checked', data["estado"])
+							        			$('.modo${i} .toggle').toggles({on:data["tipoDeFunc"]})
+							        			$('.modoCheck${i}').prop('checked', data["tipoDeFunc"])
+								        		$( "#submit${i}" ).css("width", "70px")				        		
+								        		$( "#submit${i}" ).button( "option", "label", "Actualizar" );
+								        		$( "#submit${i}" ).button( "option", "disabled", false );
+							        		}
+				        				}
+						        		});			        				
+		        						        	
 				        		return false
 					      });
 					    $( "#submit${i}" ).button( "option", "disabled", ${butonStatus} );

@@ -28,17 +28,17 @@ public class SMSCommunicationManager extends CommunicationManager {
 		params.add(new BasicNameValuePair("From", "+34983060598"));
 		params.add(new BasicNameValuePair("To", address));
 		params.add(new BasicNameValuePair("Body", message));
-	
+		//System.out.println(message);
 		MessageFactory messageFactory = client.getAccount().getMessageFactory();
 		Message twiloMessage;
-		try {
+		//try {
 			//if(!test)
-				twiloMessage = messageFactory.create(params);
-		} catch (TwilioRestException e) {
+				//twiloMessage = messageFactory.create(params);
+		//} catch (TwilioRestException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-			res = false;
-		}
+			//e.printStackTrace();
+			//res = false;
+		//}
 		return res;
 		
 	}
