@@ -115,7 +115,7 @@ class LogRequestController {
 	}
 	
 	def receiveSMSReply(){
-		def body = request.getParameter("body")
+		def body = request.getParameter("Body")
 		println body
 		def jsonBody = JSON.parse(body)
 		def commId = jsonBody.Id
