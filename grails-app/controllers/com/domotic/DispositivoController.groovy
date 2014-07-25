@@ -153,6 +153,7 @@ class DispositivoController {
 		
 	}
 	
+	@Transactional
 	def actualizaEstadoDispositivo() {
 		
 		Dispositivo device = findDevice(false)

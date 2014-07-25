@@ -114,6 +114,7 @@ class LogRequestController {
 		
 	}
 	
+	@Transactional
 	def receiveSMSReply(){
 		def body = request.getParameter("Body")
 		println body
