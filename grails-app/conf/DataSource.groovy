@@ -32,7 +32,7 @@ environments {
             dbCreate = "update"
             url = "jdbc:mysql://us-cdbr-east-06.cleardb.net/heroku_c2917b8d728802a?reconnect=true"
 			username = "ba0746fabc43cf"
-			password = "bbdfcd724"
+			password = "bdfcd724"
 			driverClassName = "com.mysql.jdbc.Driver"
 			
         }
