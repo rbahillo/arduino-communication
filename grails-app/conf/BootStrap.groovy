@@ -30,9 +30,11 @@ class BootStrap {
 				}
 			}
 			production{
-				u=new User(admin:true,userName:"ricky",password:"Opodo123",
-					listDispositivosURL:"http://arduino-communication.herokuapp.com/arduino-communcation/user/listaDispositivos/1/")
-				u.save flush:true
+				if(!User.count()){
+					u=new User(admin:true,userName:"ricky",password:"Opodo123",
+						listDispositivosURL:"http://arduino-communication.herokuapp.com/arduino-communcation/user/listaDispositivos/1/")
+					u.save flush:true
+				}
 			}
 		}
     }
