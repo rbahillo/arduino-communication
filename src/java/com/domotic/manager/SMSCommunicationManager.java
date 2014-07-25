@@ -32,7 +32,7 @@ public class SMSCommunicationManager extends CommunicationManager {
 		MessageFactory messageFactory = client.getAccount().getMessageFactory();
 		Message twiloMessage;
 		try {
-			//if(!test)
+			if(!test)
 				twiloMessage = messageFactory.create(params);
 		} catch (TwilioRestException e) {
 			// TODO Auto-generated catch block
