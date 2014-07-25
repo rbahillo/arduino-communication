@@ -30,7 +30,7 @@ environments {
     production {
         dataSource {
             dbCreate = "update"
-            url = "mysql://ba0746fabc43cf:bdfcd724@us-cdbr-east-06.cleardb.net/heroku_c2917b8d728802a?reconnect=true"
+            url = "jdbc:mysql://ba0746fabc43cf:bdfcd724@us-cdbr-east-06.cleardb.net/heroku_c2917b8d728802a?reconnect=true"
 			driverClassName = "com.mysql.jdbc.Driver"
 			dialect = org.hibernate.dialect.MySQL5InnoDBDialect
         }
