@@ -260,7 +260,7 @@ class DispositivoController {
 			if(checkResp.statusRequest.name==LogRequest.STATUS_REQUEST.REPLIED.name()){
 				respWeb = [status: "success"]
 				respWeb.putAt("estado",logRequest.estado)
-				respWeb.putAt("tipoDeFunc",logRequest.tipoDeFuncionamiento)
+				respWeb.putAt("tipoFunc",logRequest.tipoDeFuncionamiento)
 				respWeb.putAt("temperatura",logRequest.temperatura)
 				respWeb.putAt("lastUpdate",g.formatDate(date:logRequest.timeStamp, format:"dd-MM-yyyy HH:mm:ss"))
 			}

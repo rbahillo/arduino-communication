@@ -225,8 +225,8 @@
 			        			$( "#slider${i}" ).slider( { value: data["temperatura"] } )
 			        			$('.estado${i} .toggle').toggles({on:data["estado"], checkbox:$('.estadoCheck${i}')});
 			        			$('.estadoCheck${i}').prop('checked', data["estado"])
-			        			$('.modo${i} .toggle').toggles({text:{on:'Frio',off:'Calor'}, on: data["tipoDeFunc"], checkbox:$('.modoCheck${i}')});
-			        			$('.modoCheck${i}').prop('checked', data["tipoDeFunc"])
+			        			$('.modo${i} .toggle').toggles({text:{on:'Frio',off:'Calor'}, on: data["tipoFunc"], checkbox:$('.modoCheck${i}')});
+			        			$('.modoCheck${i}').prop('checked', data["tipoFunc"])
 				        		$( "#submit${i}" ).css("width", "70px")				        		
 				        		$( "#submit${i}" ).button( "option", "label", "Actualizar" );
 				        		$( "#submit${i}" ).button( "option", "disabled", false );
