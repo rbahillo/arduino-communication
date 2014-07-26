@@ -165,7 +165,7 @@
 							        			actualizaBoton${i}(parametros)
 							        		}
 							        		else {
-							        			setTimeout(checkStatus${i}(data["checkURL"], 0), 10000);
+							        			checkStatus${i}(data["checkURL"], 0);
 							        		}
 				        				}
 						        	});			        				
@@ -193,7 +193,7 @@
 						        			actualizaBoton${i}(data);
 						        		}
 						        		else{
-						        			setTimeout(checkStatus${i}(url, counter+1), 10000);
+						        			checkStatus${i}(url, counter+1);
 							        	}
 			        				}
 					        	});		
