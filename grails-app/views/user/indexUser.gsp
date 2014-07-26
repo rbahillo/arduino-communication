@@ -10,6 +10,7 @@
 		<link rel="stylesheet" href="${assetPath(src: 'jquery-ui-1.11.css')} ">
 		
 		<g:javascript library="jquery" />
+		
 		<g:javascript src="toggles.js" />
 		<link rel="stylesheet" href="${assetPath(src: 'toggles.css')} ">
 		
@@ -47,8 +48,10 @@
 			    	<div style="width:300px;float: left">
 				    	<div style="width:100%">
 					    	<p>
-							  <label for="temperature">Temperatura:</label>
-							  <input type="text" id="temperatura${i}" readonly style="border:0; color:#f6931f; font-weight:bold;width:100px">
+							  <label for="temperature" style="width:120px;">Temperatura:</label>
+							  <input type="text" id="temperatura${i}" readonly style="border:0; color:#f6931f; font-weight:bold;width:25px">
+							  <input id="less${i}" type="submit" value="-" style="height:15px;width:15px;font-size:50%;text-align:left">
+							  <input id="more${i}" type="submit" value="+" style="height:15px;width:15px;font-size:50%;text-align:left">
 							</p>
 						    <div id="slider${i}" style="height:10px;width:200px"></div>
 					    </div>
@@ -172,6 +175,26 @@
 		        						        	
 				        		return false
 					      });
+					    $( "#more${i}" )
+					      .button({
+					          icons: {
+					              primary: "ui-icon-triangle-1-s"
+					            },
+					            text: false
+					          })
+					      .click(function( event ) {
+					    	  event.preventDefault();
+					    	  $( "#slider${i}" ).slider( { value: $( "#slider${i}" ).slider( "value" ) +1 } )
+					    	  $( "#temperatura${i}" ).val( $( "#slider${i}" ).slider( "value" ) );
+					      });
+					    $( "#less${i}" )
+					      .button()
+					      .click(function( event ) {
+					    	  event.preventDefault();
+					    	  $( "#slider${i}" ).slider( { value: $( "#slider${i}" ).slider( "value" ) -1 } )
+					    	  $( "#temperatura${i}" ).val( $( "#slider${i}" ).slider( "value" ) );
+					      });  
+					      
 					    $( "#submit${i}" ).button( "option", "disabled", ${butonStatus} );
 					    function checkStatus${i}(url, counter){
 							  var parametros = {

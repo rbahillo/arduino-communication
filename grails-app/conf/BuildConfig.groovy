@@ -66,6 +66,7 @@ grails.project.dependency.resolution = {
         compile ":asset-pipeline:1.8.11"
 		compile ":rest-client-builder:2.0.3"
 		compile ":jquery-ui:1.10.3"
+		
 
         // plugins needed at runtime but not for compilation
         runtime ":hibernate4:4.3.5.4" // or ":hibernate:3.6.10.16"
