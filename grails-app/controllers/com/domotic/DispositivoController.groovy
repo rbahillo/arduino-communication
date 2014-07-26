@@ -262,7 +262,7 @@ class DispositivoController {
 				respWeb.putAt("estado",logRequest.estado)
 				respWeb.putAt("tipoDeFunc",logRequest.tipoDeFuncionamiento)
 				respWeb.putAt("temperatura",logRequest.temperatura)
-				respWeb.putAt("lastUpdate",logRequest.timeStamp)
+				respWeb.putAt("lastUpdate",g.formatDate(date:logRequest.timeStamp, format:"dd-MM-yyyy HH:mm:ss"))
 			}
 			else {
 				respWeb = ApplicationMessages.WAIT_REPLY

@@ -18,7 +18,7 @@
         <script type="text/javascript">
         $(document).ready(function()
         {
-          $("#accordion").accordion({ animate: 200 });
+          $("#accordion").accordion({ animate: 200, collapsible:true });
         })
     </script>
 		
@@ -185,7 +185,7 @@
 		        				    dataType: "json",
 		        				    data: JSON.stringify(parametros),
 		        				    success: function(data) {
-						        		if(data["status"]=="error" || counter==4){					        			
+						        		if(data["status"]=="error" || counter==6){					        			
 						        			$( "#warning${i}" ).css({"display":"block"})					        			
 						        			actualizaBoton${i}(parametros)
 						        		}					 
