@@ -146,7 +146,7 @@ class LogRequestController {
 				logRequest.dispositivo.save flush:true
 			}
 		}
-		render "</Response>"
+		render "<?xml version="1.0" encoding="UTF-8"?><Response></Response>"
 	}
 
     protected void notFound() {
