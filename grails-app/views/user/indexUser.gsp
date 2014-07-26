@@ -49,7 +49,7 @@
 				    	<div style="width:100%">
 					    	<p>
 							  <label for="temperature" style="width:120px;">Temperatura:</label>
-							  <input type="text" id="temperatura${i}" readonly style="border:0; color:#f6931f; font-weight:bold;width:25px">
+							  <input type="text" id="temperatura${i}" readonly style="border:0; color:#f6931f; font-weight:bold;width:30px">
 							  <input id="less${i}" type="submit" value="-" style="height:15px;width:15px;font-size:50%;text-align:left">
 							  <input id="more${i}" type="submit" value="+" style="height:15px;width:15px;font-size:50%;text-align:left">
 							</p>
