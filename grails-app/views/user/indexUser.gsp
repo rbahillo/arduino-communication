@@ -185,7 +185,7 @@
 		        				    dataType: "json",
 		        				    data: JSON.stringify(parametros),
 		        				    success: function(data) {
-						        		if(data["status"]=="error" || counter==1){					        			
+						        		if(data["status"]=="error" || counter==4){					        			
 						        			$( "#warning${i}" ).css({"display":"block"})					        			
 						        			actualizaBoton${i}(parametros)
 						        		}					 
