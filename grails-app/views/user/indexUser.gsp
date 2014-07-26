@@ -37,6 +37,11 @@
 				    		(Actualizado: <g:formatDate format="dd-MM-yyyy HH:mm:ss" date="${dispositivo.estado.lastUpdate}"/>)
 				    	</div>
 				    </g:if>
+				    <g:else>
+				    	<div id="updated${i}">
+				    		(Actualizado: Nunca)
+				    	</div>
+				    </g:else>
 			    </h3>
 			    <div>
 			    	<div style="width:300px;float: left">
@@ -75,7 +80,12 @@
 						    <div id="estado" class="toggle" style="height:22px;width:70px;" data-checkbox="estadoCheck${i}">	
 							</div>
 						</div>
-						<input type="checkbox" disabled="disabled" class="estadoCheck${i}" style="display:none">
+						<g:if test="${dispositivo.estado.estado}">
+							<input type="checkbox" disabled="disabled" class="estadoCheck${i}" style="display:none" checked>
+						</g:if>
+						<g:else>
+							<input type="checkbox" disabled="disabled" class="estadoCheck${i}" style="display:none">
+						</g:else>
 						
 					</div>
 					<div class="modo${i}" style="width:200px;float: left;margin-top:25px">
@@ -88,7 +98,12 @@
 						    <div class="toggle" style="height:22px;width:80px;">	
 							</div>
 						</div>
-						<input type="checkbox" disabled="disabled" class="modoCheck${i}" style="display:none">
+						<g:if test="${dispositivo.estado.tipoDeFuncionamiento}">
+							<input type="checkbox" class="modoCheck${i}" style="display:none" checked>
+						</g:if>
+						<g:else>
+							<input type="checkbox" class="modoCheck${i}" style="display:none">
+						</g:else>
 						
 					</div>
 					<g:set var="label" value="Actualizar" />
@@ -132,8 +147,8 @@
 					        	$( "#submit${i}" ).button( "option", "disabled", true );
 					        	var parametros = {
 					        				"temperatura" : $( "#temperatura${i}" ).val(),
-					        				"estado" : $( ".estadoCheck${i}" ).val(),
-					        				"tipoFunc": $( ".modoCheck${i}" ).val()
+					        				"estado" : $( ".estadoCheck${i}" ).prop('checked'),
+					        				"tipoFunc": $( ".modoCheck${i}" ).prop('checked')
 					        				};	
 		        				var url = '<g:createLink controller="dispositivo" action="actualizaEstadoDispositivoWeb" id="${dispositivo.id}"/>'
 		        					$.ajax({
@@ -143,35 +158,63 @@
 			        				    dataType: "json",
 			        				    data: JSON.stringify(parametros),
 			        				    success: function(data) {
-							        		if(data["status"]=="error"){
+							        		if(data["status"]=="error" || data["status"]=="same"){
+							        			if(data["status"]=="error"){
+							        				$( "#warning${i}" ).css({"display":"block"})
+							        			}
+							        			actualizaBoton${i}(parametros)
 							        		}
 							        		else {
-								        		if(data["status"]=="timeout"){
-								        			$( "#warning${i}" ).css({"display":"block"})
-							        			}	
-								        		else{
-									        		if(data["lastUpdate"]!=null){
-									        			$( "#updated${i}" ).html('Actualizado: ('+data["lastUpdate"]+')')
-									        		}
-									        	}
-								        		$( "#temperatura${i}" ).val(data["temperatura"])
-							        			$( "#slider${i}" ).slider( { value: data["temperatura"] } )
-							        			$('.estado${i} .toggle').toggles({on:data["estado"]})
-							        			$('.estadoCheck${i}').prop('checked', data["estado"])
-							        			$('.modo${i} .toggle').toggles({on:data["tipoDeFunc"]})
-							        			$('.modoCheck${i}').prop('checked', data["tipoDeFunc"])
-								        		$( "#submit${i}" ).css("width", "70px")				        		
-								        		$( "#submit${i}" ).button( "option", "label", "Actualizar" );
-								        		$( "#submit${i}" ).button( "option", "disabled", false );
+							        			setTimeout(checkStatus${i}(data["checkURL"], 0), 10000);
 							        		}
 				        				}
-						        		});			        				
+						        	});			        				
 		        						        	
 				        		return false
 					      });
 					    $( "#submit${i}" ).button( "option", "disabled", ${butonStatus} );
+					    function checkStatus${i}(url, counter){
+							  var parametros = {
+				        				"checkURL" : url
+				        				};
+		        			  var checkUrl = '<g:createLink controller="dispositivo" action="checkStatusWeb"/>'	
+							  $.ajax({
+		        				    type: "POST",
+		        				    url: checkUrl,
+		        				    contentType: "application/json; charset=utf-8",
+		        				    dataType: "json",
+		        				    data: JSON.stringify(parametros),
+		        				    success: function(data) {
+						        		if(data["status"]=="error" || counter==1){					        			
+						        			$( "#warning${i}" ).css({"display":"block"})					        			
+						        			actualizaBoton${i}(parametros)
+						        		}					 
+						        		else if (data["status"]=="success"){
+						        			actualizaBoton${i}(data);
+						        		}
+						        		else{
+						        			setTimeout(checkStatus${i}(url, counter+1), 10000);
+							        	}
+			        				}
+					        	});		
+						  }
+						  function actualizaBoton${i}(data){
+			        			$( "#slider${i}" ).slider( { value: data["temperatura"] } )
+			        			$('.estado${i} .toggle').toggles({on:data["estado"], checkbox:$('.estadoCheck${i}')});
+			        			$('.estadoCheck${i}').prop('checked', data["estado"])
+			        			$('.modo${i} .toggle').toggles({text:{on:'Frio',off:'Calor'}, on: data["tipoDeFunc"], checkbox:$('.modoCheck${i}')});
+			        			$('.modoCheck${i}').prop('checked', data["tipoDeFunc"])
+				        		$( "#submit${i}" ).css("width", "70px")				        		
+				        		$( "#submit${i}" ).button( "option", "label", "Actualizar" );
+				        		$( "#submit${i}" ).button( "option", "disabled", false );
+				        		if(data["lastUpdate"]!=null){
+				        			$( "#updated${i}" ).html('Actualizado: ('+data["lastUpdate"]+')')
+				        		}
+						  }
 					  });
-					 
+					  
+
+					  
 					  </script>
 				</div>
 			</g:each>

@@ -12,6 +12,8 @@ class ApplicationMessages {
 	static final DEVICE_NOT_FOUND = [status: "error", errorCode:"8", errorDescription:"Device not found"]
 	
 	static final SUCCESS_REPLY = [status: "success"]
+	static final SAME_REPLY = [status: "same"]
 	static final TIMEOUT_REPLY = [status: "timeout"]
+	static final WAIT_REPLY = [status: "wait"]
 
 }

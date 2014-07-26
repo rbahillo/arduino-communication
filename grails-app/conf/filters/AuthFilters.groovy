@@ -26,7 +26,7 @@ class AuthFilters {
 		}
 
 		authWebFilter(controller:'user|dispositivo|logRequest',
-		action:'index|show|create|save|update|delete|indexWeb|indexAdmin') {
+		action:'index|show|create|save|update|delete|indexWeb|indexAdmin|actualizaEstadoDispositivoWeb') {
 			before = {
 				if(!session.user) {
 					// i.e. user not logged in
@@ -35,10 +35,13 @@ class AuthFilters {
 					return false
 				}
 			}
+			after = {
+				session.user=User.findWhere(userName:session.user.userName, password:session.user.password)
+			}
 		}
 
 		authWebAdminFilter(controller:'user|dispositivo|logRequest',
-		action:'show|create|save|update|delete|indexAdmin|indexWeb') {
+		action:'show|create|save|update|delete|indexAdmin') {
 			before = {
 				User user = session.user
 				if(!user.admin){
