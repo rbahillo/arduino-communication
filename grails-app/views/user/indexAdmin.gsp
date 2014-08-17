@@ -91,6 +91,7 @@
 					<li class="controller"><g:link controller="user">Usuarios</g:link></li>
 					<li class="controller"><g:link controller="dispositivo">Dispositivos</g:link></li>
 					<li class="controller"><g:link controller="logRequest">Requests</g:link></li>
+					<li class="controller"><g:link controller="price">Precios</g:link></li>
 				</ul>
 			</div>
 		</div>

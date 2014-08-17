@@ -3,12 +3,14 @@ import grails.util.Environment;
 import com.domotic.Dispositivo
 import com.domotic.EstadoDispositivo;
 import com.domotic.User
+import com.domotic.Price
 
 class BootStrap {
 	
 	User u = null
 	Dispositivo d = null
 	EstadoDispositivo ed = null
+	Price price = null
 
     def init = { servletContext ->
 		
@@ -27,6 +29,12 @@ class BootStrap {
 					ed.save flush:true
 					d.save flush:true
 					u.save flush:true
+				}
+				if(!Price.count()){
+					Date date = new Date()
+					Map prices = ["0":"100", "1":"101", "2":"101"]
+					price = new Price (date: date, prices: prices)
+					price.save flush:true
 				}
 			}
 			production{

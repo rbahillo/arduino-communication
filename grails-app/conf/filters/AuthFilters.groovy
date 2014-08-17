@@ -25,7 +25,7 @@ class AuthFilters {
 			}
 		}
 
-		authWebFilter(controller:'user|dispositivo|logRequest',
+		authWebFilter(controller:'user|dispositivo|logRequest|price',
 		action:'index|show|create|save|update|delete|indexWeb|indexAdmin|actualizaEstadoDispositivoWeb') {
 			before = {
 				if(!session.user) {
@@ -40,7 +40,7 @@ class AuthFilters {
 			}
 		}
 
-		authWebAdminFilter(controller:'user|dispositivo|logRequest',
+		authWebAdminFilter(controller:'user|dispositivo|logRequest|price',
 		action:'show|create|save|update|delete|indexAdmin') {
 			before = {
 				User user = session.user
