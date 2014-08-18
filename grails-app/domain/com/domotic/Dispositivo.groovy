@@ -19,6 +19,8 @@ class Dispositivo {
 		AIRE, CALENTADOR, ENCHUFE
 	}
 	
+	Boolean usaTarifaHoraria
+	
 	DEVICE_TYPE tipoDeDispositivo
 	
 	String direccion

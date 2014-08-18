@@ -21,7 +21,7 @@ class BootStrap {
 								,tipoDeDispositivo:Dispositivo.DEVICE_TYPE.AIRE,direccion:"+34672289728",estado:ed,
 								estadoDispositivoURL:"http://localhost:8080/arduino-communcation/dispositivo/estadoDispositivo/1/"
 								,actualizaEstadoDispositivoURL:"http://localhost:8080/arduino-communcation/dispositivo/actualizaEstadoDispositivo/1/"
-								,statusRequest:Dispositivo.WEB_STATUS_REQUEST.OK)
+								,statusRequest:Dispositivo.WEB_STATUS_REQUEST.OK, usaTarifaHoraria:true)
 				if(!User.count()){
 					u=new User(admin:true,userName:"ricky",password:"Opodo123",
 						listDispositivosURL:"http://localhost:8080/arduino-communcation/user/listaDispositivos/1/")

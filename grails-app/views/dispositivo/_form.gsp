@@ -38,6 +38,15 @@
 
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: dispositivoInstance, field: 'usaTarifaHoraria', 'error')} ">
+	<label for="usaTarifaHoraria">
+		<g:message code="dispositivoInstance.usaTarifaHoraria.label" default="Usa Tarifa Horaria" />
+		
+	</label>
+	<g:checkBox name="usaTarifaHoraria" value="${dispositivoInstance?.usaTarifaHoraria}" />
+
+</div>
+
 <div class="fieldcontain ${hasErrors(bean: dispositivoInstance, field: 'statusRequest', 'error')} required">
 	<label for="statusRequest">
 		<g:message code="dispositivo.statusRequest.label" default="Estado Web" />

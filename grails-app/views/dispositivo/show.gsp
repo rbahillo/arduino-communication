@@ -53,6 +53,15 @@
 				</li>
 				</g:if>
 				
+				
+				<li class="fieldcontain">
+					<span id="usaTarifaHoraria-label" class="property-label"><g:message code="dispositivo.usaTarifaHoraria.label" default="Usa Tarifa Horaria" /></span>
+					
+						<span class="property-value" aria-labelledby="usaTarifaHoraria-label"><g:formatBoolean boolean="${dispositivoInstance.usaTarifaHoraria}"/></span>
+					
+				</li>
+				
+				
 				<g:if test="${dispositivoInstance?.statusRequest}">
 				<li class="fieldcontain">
 					<span id="statusRequest-label" class="property-label"><g:message code="dispositivo.statusRequest.label" default="Estado Web" /></span>
