@@ -45,6 +45,7 @@
 				    </g:else>
 			    </h3>
 			    <div>
+			    	<g:if test="${dispositivo.tipoDeDispositivo == com.domotic.Dispositivo.DEVICE_TYPE.AIRE}">
 			    	<div style="width:300px;float: left">
 				    	<div style="width:100%">
 					    	<p>
@@ -73,6 +74,7 @@
 							</div>
 						</div>
 					</div>
+					</g:if>
 					<div class="estado${i}" style="width:200px;float: left;margin-top:25px">
 						<div style="float: left;">
 					    	<p>
@@ -91,6 +93,7 @@
 						</g:else>
 						
 					</div>
+					<g:if test="${dispositivo.tipoDeDispositivo == com.domotic.Dispositivo.DEVICE_TYPE.AIRE}">
 					<div class="modo${i}" style="width:200px;float: left;margin-top:25px">
 						<div style="float: left;">
 					    	<p>
@@ -109,6 +112,7 @@
 						</g:else>
 						
 					</div>
+					</g:if>
 					<g:set var="label" value="Actualizar" />
 					<g:set var="style" value="width:70px;height:30px;font-size:62.5%;padding-left:7px" />
 					<g:set var="butonStatus" value="false" />
@@ -148,10 +152,19 @@
 					        	$( "#submit${i}" ).css("width", "90px")
 					        	$( "#submit${i}" ).button( "option", "label", "Actualizando" );
 					        	$( "#submit${i}" ).button( "option", "disabled", true );
+					        	var temperaturaToSend = $( "#temperatura${i}" ).val()
+					        	if(temperaturaToSend==null){
+					        		temperaturaToSend=10
+						        }
+					        	var estadoToSend = $( ".estadoCheck${i}" ).prop('checked')
+					        	var tipoFuncToSend = $( ".modoCheck${i}" ).prop('checked')
+					        	if(tipoFuncToSend==null){
+					        		tipoFuncToSend=true
+						        }
 					        	var parametros = {
-					        				"temperatura" : $( "#temperatura${i}" ).val(),
-					        				"estado" : $( ".estadoCheck${i}" ).prop('checked'),
-					        				"tipoFunc": $( ".modoCheck${i}" ).prop('checked')
+					        				"temperatura" : temperaturaToSend,
+					        				"estado" : estadoToSend,
+					        				"tipoFunc": tipoFuncToSend
 					        				};	
 		        				var url = '<g:createLink controller="dispositivo" action="actualizaEstadoDispositivoWeb" id="${dispositivo.id}"/>'
 		        					$.ajax({
