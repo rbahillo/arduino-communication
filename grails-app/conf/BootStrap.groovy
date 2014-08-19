@@ -14,6 +14,7 @@ class BootStrap {
 
     def init = { servletContext ->
 		
+		
 		environments {
 			development {
 				ed=new EstadoDispositivo(estado:false,tipoDeFuncionamiento:false,temperatura:10, lastUpdate:new Date())
@@ -36,6 +37,14 @@ class BootStrap {
 					price = new Price (date: date, prices: prices)
 					price.save flush:true
 				}
+				User user = User.findByUserName("scheduler")
+				if(user==null){
+					user = new User(admin:true,userName:"scheduler",password:"scheduler",
+						listDispositivosURL:"")
+					user.dispositivos=Dispositivo.findAll()
+					user.save flush:true
+				}
+				
 			}
 			production{
 				if(!User.count()){
@@ -43,6 +52,14 @@ class BootStrap {
 						listDispositivosURL:"http://arduino-communication.herokuapp.com/arduino-communcation/user/listaDispositivos/1/")
 					u.save flush:true
 				}
+				User user = User.findByUserName("scheduler")
+				if(user==null){
+					user = new User(admin:true,userName:"scheduler",password:"scheduler",
+						listDispositivosURL:"")
+					user.dispositivos=Dispositivo.findAll()
+					user.save flush:true
+				}
+				
 			}
 		}
     }

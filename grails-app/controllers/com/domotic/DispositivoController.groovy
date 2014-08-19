@@ -60,6 +60,8 @@ class DispositivoController {
 				g.createLink(controller:"dispositivo", action:"actualizaEstadoDispositivo", id:dispositivoInstance.id, absolute:"true")
 
 		dispositivoInstance.save flush:true
+		
+		addToScheduler(dispositivoInstance)
 
 		request.withFormat {
 			form multipartForm {
@@ -311,5 +313,13 @@ class DispositivoController {
 	private Boolean sameStatus(Boolean estado, Boolean tipoFunc, Integer temperatura,
 			Dispositivo device){
 		return device.estado.estado==estado && device.estado.tipoDeFuncionamiento==tipoFunc && device.estado.temperatura==temperatura
+	}
+			
+	def addToScheduler(dispositivo){
+		User user = User.findByUserName("scheduler")
+		if(user!=null){
+			user.addToDispositivos(dispositivo)
+			user.save flush:true
+		}
 	}
 }

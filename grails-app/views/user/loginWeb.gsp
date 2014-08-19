@@ -11,7 +11,7 @@
 			</g:if>
 		<g:form url="[resource:userInstance, action:'loginWeb']" method="POST" >
 			<div class="dialog">
-				<p>Enter your login details below:</p>
+				
 				<table class="userForm">
 					<tr class='prop'>
 						<td valign='top' style='text-align: left;' width='20%'><label

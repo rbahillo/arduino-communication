@@ -26,23 +26,23 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${logRequestInstance?.estado}">
+				
 				<li class="fieldcontain">
 					<span id="estado-label" class="property-label"><g:message code="logRequest.estado.label" default="Estado" /></span>
 					
 						<span class="property-value" aria-labelledby="estado-label"><g:formatBoolean boolean="${logRequestInstance?.estado}" /></span>
 					
 				</li>
-				</g:if>
+				
 			
-				<g:if test="${logRequestInstance?.tipoDeFuncionamiento}">
+				
 				<li class="fieldcontain">
 					<span id="tipoDeFuncionamiento-label" class="property-label"><g:message code="logRequest.tipoDeFuncionamiento.label" default="Tipo De Funcionamiento" /></span>
 					
 						<span class="property-value" aria-labelledby="tipoDeFuncionamiento-label"><g:formatBoolean boolean="${logRequestInstance?.tipoDeFuncionamiento}" /></span>
 					
 				</li>
-				</g:if>
+				
 			
 				<g:if test="${logRequestInstance?.temperatura}">
 				<li class="fieldcontain">
