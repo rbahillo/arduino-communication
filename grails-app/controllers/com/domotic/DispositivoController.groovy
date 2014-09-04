@@ -187,11 +187,10 @@ class DispositivoController {
 			LogRequest logRequest = generateLogRequest(request.user,device,estado,
 					messageType)
 
-			String message = commManager.createMessage(logRequest, estado,
-					messageType)
 			log.error "Environment: "+Environment.current
 			println "Environment: "+Environment.current==Environment.DEVELOPMENT
-			if(commManager.sendMessage(message, device.direccion, Environment.current == Environment.DEVELOPMENT)){
+			
+			if(commManager.sendMessage(device, estado, logRequest, messageType, Environment.current == Environment.DEVELOPMENT)){
 				logRequest.save flush:true
 				def resp = ApplicationMessages.SUCCESS_REPLY
 				resp.putAt("checkURL", g.createLink(controller:"logRequest", action:"check", id:logRequest.communicationId, absolute:"true"))

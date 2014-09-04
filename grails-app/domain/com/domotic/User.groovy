@@ -16,4 +16,8 @@ class User {
 		listDispositivosURL nullable: true
     }
 	
+	static mapping = {
+		dispositivos lazy: false
+	}
+	
 }

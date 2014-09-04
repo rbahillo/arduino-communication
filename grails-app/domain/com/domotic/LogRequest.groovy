@@ -30,5 +30,13 @@ class LogRequest {
 		tipoDeFuncionamiento nullable: true
 		temperatura nullable: true
     }
+
+	public Integer getCommunicationId() {
+		return communicationId;
+	}
+	public void setCommunicationId(Integer communicationId) {
+		this.communicationId = communicationId;
+	}	
+	
 	
 }
