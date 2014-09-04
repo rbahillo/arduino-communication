@@ -8,7 +8,7 @@ import com.domotic.manager.web.RestClientManager
 
 class DeviceSchedulerJob {
     static triggers = {
-		cron name: 'deviceScheduler', cronExpression: "0 55 * * * ?"
+		cron name: 'deviceScheduler', cronExpression: "55 * * * * ?"
 		//simple name: 'mySimpleTrigger', startDelay: 10000, repeatInterval: 100000
 	}
 	def group = "Prices"
