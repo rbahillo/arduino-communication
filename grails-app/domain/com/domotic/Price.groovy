@@ -12,4 +12,8 @@ class Price {
     static constraints = {
 		date unique: true
     }
+	
+	static mapping = {
+		sort date: "desc" // or "asc"
+	}
 }

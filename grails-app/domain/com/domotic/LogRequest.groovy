@@ -30,6 +30,10 @@ class LogRequest {
 		tipoDeFuncionamiento nullable: true
 		temperatura nullable: true
     }
+	
+	static mapping = {
+		sort timeStamp: "desc" // or "asc"
+	}
 
 	public Integer getCommunicationId() {
 		return communicationId;
