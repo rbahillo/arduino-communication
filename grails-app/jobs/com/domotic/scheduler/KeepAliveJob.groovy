@@ -4,7 +4,7 @@ package com.domotic.scheduler
 
 class KeepAliveJob {
     static triggers = {
-		cron name: 'keepAlive', cronExpression: "* 59 * * * * *"
+		cron name: 'keepAlive', cronExpression: "* 59 * * * ?"
 		//simple name: 'mySimpleTrigger', startDelay: 10000, repeatInterval: 100000
 	}
 

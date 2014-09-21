@@ -7,7 +7,7 @@ import org.codehaus.groovy.runtime.*;
 
 class PriceDownloaderJob {
 	static triggers = {
-		cron name: 'downloader', cronExpression: "* 50 23 * * * *"
+		cron name: 'downloader', cronExpression: "* 50 23 * * ?"
 		//simple name: 'mySimpleTrigger2', startDelay: 10000, repeatInterval: 100000
 	}
 	def group = "Prices"
