@@ -8,7 +8,7 @@ import org.codehaus.groovy.runtime.*;
 class PriceDownloaderJob {
 	static triggers = {
 		cron name: 'downloader', cronExpression: "0 50 23 * * ?"
-		//simple name: 'mySimpleTrigger2', startDelay: 10000, repeatInterval: 100000
+		//simple name: 'mySimpleTrigger2', startDelay: 1000, repeatInterval: 100000
 	}
 	def group = "Prices"
 	def description = "Downloader of prices"
@@ -29,5 +29,6 @@ class PriceDownloaderJob {
 		}
 		Price price = new Price (date: DateGroovyMethods.format(tomorrow, 'yyyy-MM-dd') , prices: prices)
 		price.save flush:true
+		println price.allowOrange()
 	}
 }

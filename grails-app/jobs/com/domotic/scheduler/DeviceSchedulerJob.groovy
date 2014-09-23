@@ -32,10 +32,10 @@ class DeviceSchedulerJob {
 			print nextPrice
 			
 			def newStatus = "same"
-			if(isGreen(currentPrice) && !isGreen(nextPrice)){
+			if(isGreen(currentPrice, price.allowOrange()) && !isGreen(nextPrice, price.allowOrange())){
 				newStatus="off"
 			}
-			else if(!isGreen(currentPrice) && isGreen(nextPrice)){
+			else if(!isGreen(currentPrice, price.allowOrange()) && isGreen(nextPrice, price.allowOrange())){
 				newStatus="on"
 			}
 			if(!newStatus.equalsIgnoreCase("same"))
@@ -51,8 +51,9 @@ class DeviceSchedulerJob {
 		return price
 	}
 	
-	def Boolean isGreen(price){
-		new Double(price)<120
+	def Boolean isGreen(price, allowOrange){
+		def doublePrice = new Double(price)
+		return (doublePrice<Price.GREEN || (allowOrange && doublePrice<Price.ORANGE))
 	}
 	
 	def processNewStatus(newStatus){
