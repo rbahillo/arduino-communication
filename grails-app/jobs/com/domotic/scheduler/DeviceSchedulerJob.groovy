@@ -58,7 +58,7 @@ class DeviceSchedulerJob {
 	
 	def processNewStatus(newStatus, maxTimeOn){
 		Dispositivo.findAll().each { device -> 
-			if(device.usaTarifaHoraria && device.minimumTimeOn<=maxTimeOn)
+			if(device.usaTarifaHoraria && ((newStatus.equals("on") && device.minimumTimeOn<=maxTimeOn) || (newStatus.equals("off"))))
 				updateStatus(device, newStatus)
 		}
 	}
