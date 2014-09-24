@@ -56,3 +56,12 @@
 
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: dispositivoInstance, field: 'minimumTimeOn', 'error')} required">
+	<label for="minimumTimeOn">
+		<g:message code="dispositivo.minimumTimeOn.label" default="Tiempo Minimo On" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:field name="minimumTimeOn" type="number" value="${dispositivoInstance.minimumTimeOn}" required=""/>
+
+</div>
+

@@ -31,6 +31,8 @@ class Dispositivo {
 	
 	String actualizaEstadoDispositivoURL = ""
 	
+	Integer minimumTimeOn = 1
+	
 	enum WEB_STATUS_REQUEST{
 		PENDING, OK, ERROR
 	}

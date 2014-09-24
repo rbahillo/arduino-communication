@@ -71,6 +71,13 @@
 				</li>
 				</g:if>
 				
+				<li class="fieldcontain">
+					<span id="minimumTimeOn-label" class="property-label"><g:message code="dispositivo.minimumTimeOn.label" default="Tiempo Minimo On" /></span>
+					
+						<span class="property-value" aria-labelledby="minimumTimeOn-label"><g:fieldValue bean="${dispositivoInstance}" field="minimumTimeOn"/></span>
+					
+				</li>
+				
 				<g:if test="${dispositivoInstance?.estado}">
 				<h1><g:message code="estadoDispositivo.label" default="Estado De Dispositivo" /></h1>
 				<li class="fieldcontain">

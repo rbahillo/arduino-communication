@@ -28,10 +28,10 @@ class DeviceSchedulerJob {
 			
 			def currentPrice = price.prices.get(hour.toString())
 			def nextPrice = nextPriceData.prices.get((nextHour).toString())
-			print currentPrice
-			print nextPrice
+			
 			
 			def newStatus = "same"
+			def maxTimeOn = getMaximumTimeOn(nextHour+1, nextPriceData)
 			if(isGreen(currentPrice, price.allowOrange()) && !isGreen(nextPrice, price.allowOrange())){
 				newStatus="off"
 			}
@@ -39,7 +39,7 @@ class DeviceSchedulerJob {
 				newStatus="on"
 			}
 			if(!newStatus.equalsIgnoreCase("same"))
-				processNewStatus(newStatus)
+				processNewStatus(newStatus, maxTimeOn)
 		}
 		
     }
@@ -56,9 +56,9 @@ class DeviceSchedulerJob {
 		return (doublePrice<Price.GREEN || (allowOrange && doublePrice<Price.ORANGE))
 	}
 	
-	def processNewStatus(newStatus){
+	def processNewStatus(newStatus, maxTimeOn){
 		Dispositivo.findAll().each { device -> 
-			if(device.usaTarifaHoraria)
+			if(device.usaTarifaHoraria && device.minimumTimeOn<=maxTimeOn)
 				updateStatus(device, newStatus)
 		}
 	}
@@ -72,5 +72,28 @@ class DeviceSchedulerJob {
 		def resp = RestClientManager.getResponseFromService(device.actualizaEstadoDispositivoURL,
 				parameters)
 		print resp
+	}
+	
+	def Integer getMaximumTimeOn(nextHour, nextPriceData){
+		def maxTimeOn=1
+		def noOff = true
+		def numDays = 0
+		while (noOff || numDays>1){
+			if(nextHour>23){
+				nextHour=0
+				nextPriceData = findPrice(new Date()+numDays+1)
+				numDays++
+			}
+			def currentPrice = nextPriceData.prices.get(nextHour.toString())
+			if(isGreen(currentPrice, nextPriceData.allowOrange())){
+				maxTimeOn++
+			}
+			else{
+				noOff=false
+			}
+			nextHour++
+		}
+		println maxTimeOn
+		return maxTimeOn
 	}
 }

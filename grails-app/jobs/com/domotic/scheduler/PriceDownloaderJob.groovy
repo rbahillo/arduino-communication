@@ -29,6 +29,5 @@ class PriceDownloaderJob {
 		}
 		Price price = new Price (date: DateGroovyMethods.format(tomorrow, 'yyyy-MM-dd') , prices: prices)
 		price.save flush:true
-		println price.allowOrange()
 	}
 }
